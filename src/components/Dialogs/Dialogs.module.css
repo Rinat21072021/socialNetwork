@@ -1,0 +1,19 @@
+.diologs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+.dialogItem{
+
+}
+.dialog{
+
+}
+.dialogItem .active{
+    color: gold;
+}
+.massages{
+
+}
+.massage{
+
+}
