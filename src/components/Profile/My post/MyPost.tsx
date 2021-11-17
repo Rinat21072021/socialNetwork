@@ -7,7 +7,7 @@ type MyPostPropsType={
     posts:Array<postsType>
 }
 
-
+// test
 const MyPost=(props: MyPostPropsType)=> {
 
     let postElement=
