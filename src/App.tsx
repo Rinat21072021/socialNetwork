@@ -9,6 +9,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from './components/News/News';
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
+import Friends from "./components/Friends/Friends";
 import {stateType} from "./Redux/state";
 
 
@@ -37,6 +38,7 @@ const App = (props:AppType) => {
                     <Route path={'/News'} component={News} />
                     <Route path={'/Music'} component={Music} />
                     <Route path={'/Setting'} component={Setting} />
+                    <Route path={'/Friends'} component={Friends} />
                 </div>
             </div>
         </BrowserRouter>
