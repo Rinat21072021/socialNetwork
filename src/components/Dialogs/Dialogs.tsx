@@ -17,14 +17,16 @@ type DialogsPropsType={
 }
 
 export const Dialogs = (props:DialogsPropsType) => {
+
+
     return (
         <div className={s.diologs}>
             <div className={s.dialogItem}>
-
+                {props.dialogsData.map(m=><p><a href = '' key={m.id}>{m.name}</a></p>)}
 
             </div>
             <div className={s.massages}>
-
+                {props.messageData.map(m=><p><textarea key={m.id}>{m.message}</textarea></p>)}
 
 
             </div>

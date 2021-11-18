@@ -10,6 +10,11 @@ type MyPostPropsType={
 // test
 const MyPost=(props: MyPostPropsType)=> {
 
+let newPostElement = React.createRef();
+
+const addPost=()=>{
+    alert(newPostElement)
+}
     let postElement=
         state.ProfilePage.posts.map(p=><div>{p.message}<p>{p.likesCount}</p></div>)
     return (
@@ -17,10 +22,10 @@ const MyPost=(props: MyPostPropsType)=> {
             <h3>My post</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ></textarea> // добавить в атрибют ref let newPostElement
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
