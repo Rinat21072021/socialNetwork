@@ -47,8 +47,8 @@ export let state: stateType = {
         messageData: [
             {id: 1, message: 'hi'},
             {id: 2, message: 'How is your it-incubator'},
-            {id: 3, message: 'YO'},
-            {id: 4, message: 'YO'},
+            {id: 3, message: 'number tree'},
+            {id: 4, message: 'What to learn?'},
         ],
     },
 
