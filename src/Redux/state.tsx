@@ -25,6 +25,7 @@ export type postsType= {
 export type stateType = {
     ProfilePage: ProfilePageType
     DialogPage:dialogAndMessage
+    sidebar:{}
 }
 
 export let state: stateType = {
@@ -51,5 +52,15 @@ export let state: stateType = {
             {id: 4, message: 'What to learn?'},
         ],
     },
+    sidebar:{},
 
+}
+
+export let addPost=(postMessage:string)=>{
+    let newPost = {
+        id:5,
+        message:postMessage,
+        likesCount:0,
+    }
+    state.ProfilePage.posts.push(newPost);
 }

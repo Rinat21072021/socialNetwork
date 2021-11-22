@@ -9,12 +9,11 @@ type DialogsPropsType = {
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
-    let newMassageElement = React.createRef<HTMLTextAreaElement>();
+    let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
-    let addMassage = (id: number) => {
-        console.log(id)
-        if (newMassageElement.current) {
-            alert(newMassageElement.current.value)
+    let addMessageHandler = (id: number, message:string) => {
+        if (newMessageElement.current) {
+            alert(message)
         }
     };
 
@@ -26,18 +25,12 @@ export const Dialogs = (props: DialogsPropsType) => {
 
             <div className={s.massages}>
                 {props.messageData.map(m => {
-                    // let addMassage = (id: number) => {
-                    //     console.log(id)
-                    //     if (newMassageElement.current) {
-                    //         alert(newMassageElement.current.value)
-                    //     }
-                    //
-                    // };
+
                     return (
                         <p><textarea
                             key={m.id}
-                            ref={newMassageElement}>{m.message}</textarea>
-                            <button onClick={() => addMassage(m.id)}>ok</button>
+                            ref={newMessageElement}>{m.message}</textarea>
+                            <button onClick={() => addMessageHandler(m.id,m.message)}>ok</button>
                         </p>
                     )
                 })}

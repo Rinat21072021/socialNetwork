@@ -8,9 +8,9 @@ const Navbar= () =>{
             <div className={s.item}>
                 <NavLink to='/Profile' activeClassName={s.activeClassName}>Profile</NavLink>
             </div>
-            <div className={s.item}>
-                <NavLink to='/ProfileInfo' activeClassName={s.activeClassName}>Profile</NavLink>
-            </div>
+            {/*<div className={s.item}>*/}
+            {/*    <NavLink to='/ProfileInfo' activeClassName={s.activeClassName}>Profile</NavLink>*/}
+            {/*</div>*/}
             <div className={s.item}>
                 <NavLink to='/Dialogs' activeClassName={s.activeClassName}>Massage</NavLink>
             </div >
