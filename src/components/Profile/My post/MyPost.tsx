@@ -6,6 +6,7 @@ import {postsType, state} from "../../../Redux/state";
 type MyPostPropsType = {
     posts: Array<postsType>
     addPost: (postMessage: string) => void
+    post:Array<postsType>
 
 }
 

@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from "../Render"
+
 export type dialogAndMessage={
     dialogsData:Array<dialogsData>
     messageData: Array<messageData>
@@ -63,4 +65,5 @@ export let addPost=(postMessage:string)=>{
         likesCount:0,
     }
     state.ProfilePage.posts.push(newPost);
+    rerenderEntireTree(state);
 }

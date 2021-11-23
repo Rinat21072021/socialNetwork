@@ -10,8 +10,7 @@ import News from './components/News/News';
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import Friends from "./components/Friends/Friends";
-import {stateType} from "./Redux/state";
-
+import {postsType, stateType} from "./Redux/state";
 
 
 /*export type massageDataType={
@@ -24,7 +23,8 @@ export type dialogsDataType={
 }*/
 type AppType = {
     state: stateType
-    addPost: (postMessage:string) => void
+
+    addPost: (postMessage: string) => void
 
 }
 
@@ -36,7 +36,8 @@ const App = (props: AppType) => {
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Route path={'/Profile'} render={() => <Profile ProfilePage={props.state.ProfilePage}
-                                                                    addPost={props.addPost}/>}/>
+                                                                    addPost={props.addPost}
+                                                                    post={props.state.ProfilePage.posts}/>}/>
                     <Route path={'/Dialogs'} render={() => <Dialogs dialogsData={props.state.DialogPage.dialogsData}
                                                                     messageData={props.state.DialogPage.messageData}/>}/>
                     <Route path={'/News'} component={News}/>
