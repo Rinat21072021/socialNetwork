@@ -16,11 +16,13 @@ export type dialogsData={
 
 export type ProfilePageType={
     posts:Array<postsType>
+    message :string
 }
 export type postsType= {
     id: number
     message: string
     likesCount: number
+
 }
 
 
@@ -32,11 +34,13 @@ export type stateType = {
 
 export let state: stateType = {
     ProfilePage: {
+        message :'',
         posts:[
             {id: 1, message: 'Hi, how are you?', likesCount: 15},
             {id: 2, message: 'Hi, message', likesCount: 20},
             {id: 3, message: 'Hi, Serg', likesCount: 30},
             {id: 4, message: 'Hi, Nikola', likesCount: 10}],
+
     },
     DialogPage: {
         dialogsData: [
@@ -65,5 +69,9 @@ export let addPost=(postMessage:string)=>{
         likesCount:0,
     }
     state.ProfilePage.posts.push(newPost);
+    rerenderEntireTree(state);
+}
+export let changeNewText=(newText:string)=>{
+    state.ProfilePage.message=newText;
     rerenderEntireTree(state);
 }

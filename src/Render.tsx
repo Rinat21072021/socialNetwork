@@ -5,10 +5,10 @@ import App from './App';
 import {addPost, state, stateType} from "./Redux/state";
 import {BrowserRouter} from 'react-router-dom';
 
-export let rerenderEntireTree = (state: stateType) => {
+export let rerenderEntireTree = (state: stateType ) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} addPost={addPost}/>
+            <App state={state} addPost={addPost} />
         </BrowserRouter>, document.getElementById('root'));
 
 }
