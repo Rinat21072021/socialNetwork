@@ -1,24 +1,24 @@
-import { rerenderEntireTree } from "../Render"
+import {rerenderEntireTree} from "../Render"
 
-export type dialogAndMessage={
-    dialogsData:Array<dialogsData>
+export type dialogAndMessage = {
+    dialogsData: Array<dialogsData>
     messageData: Array<messageData>
 }
-export type messageData={
-    id:number
-    message:string
+export type messageData = {
+    id: number
+    message: string
 }
-export type dialogsData={
-    id:number
+export type dialogsData = {
+    id: number
     name: string
 
 }
 
-export type ProfilePageType={
-    posts:Array<postsType>
-    message :string
+export type ProfilePageType = {
+    posts: Array<postsType>
+    message: string
 }
-export type postsType= {
+export type postsType = {
     id: number
     message: string
     likesCount: number
@@ -28,14 +28,14 @@ export type postsType= {
 
 export type stateType = {
     ProfilePage: ProfilePageType
-    DialogPage:dialogAndMessage
-    sidebar:{}
+    DialogPage: dialogAndMessage
+    sidebar: {}
 }
 
 export let state: stateType = {
     ProfilePage: {
-        message :'',
-        posts:[
+        message: '',
+        posts: [
             {id: 1, message: 'Hi, how are you?', likesCount: 15},
             {id: 2, message: 'Hi, message', likesCount: 20},
             {id: 3, message: 'Hi, Serg', likesCount: 30},
@@ -58,20 +58,21 @@ export let state: stateType = {
             {id: 4, message: 'What to learn?'},
         ],
     },
-    sidebar:{},
+    sidebar: {},
 
 }
 
-export let addPost=(postMessage:string)=>{
+export let addPost = () => {
     let newPost = {
-        id:5,
-        message:postMessage,
-        likesCount:0,
+        id: 5,
+        message: state.ProfilePage.message,
+        likesCount: 0,
     }
     state.ProfilePage.posts.push(newPost);
+    state.ProfilePage.message = ''
     rerenderEntireTree(state);
 }
-export let changeNewText=(newText:string)=>{
-    state.ProfilePage.message=newText;
+export let changeNewText = (newText: string) => {
+    state.ProfilePage.message = newText;
     rerenderEntireTree(state);
 }
