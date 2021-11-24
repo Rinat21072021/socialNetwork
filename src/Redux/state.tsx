@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../Render"
+let rerenderEntireTree=()=>{
+    console.log('change render')
+}
 
 export type dialogAndMessage = {
     dialogsData: Array<dialogsData>
@@ -72,12 +74,12 @@ export let addPost = () => {
     }
     state.ProfilePage.posts.push(newPost);
     state.ProfilePage.message = ''
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 export let changeNewText = (newText: string) => {
     state.ProfilePage.message = newText;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 export const addDialogMessage = () => {
@@ -87,10 +89,14 @@ export const addDialogMessage = () => {
     }
     state.DialogPage.messageData.push(newMessage);
     state.DialogPage.newDialogMessage = '';
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 export const changeDialogMessage =(newMessage:string)=>{
     state.DialogPage.newDialogMessage = newMessage;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
+}
+
+export const subscribe = (observe:any)=>{
+    rerenderEntireTree = observe
 }

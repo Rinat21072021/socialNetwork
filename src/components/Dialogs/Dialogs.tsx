@@ -41,12 +41,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     return (
                         <div>
                                 <p>{m.message}</p>
-                            {/*<textarea
-                                onChange={dialogsChangeHandler}
-                                key={m.id}
-                            >
-                                {m.message}
-                            </textarea>*/}
+
 
                         </div>
                     )
