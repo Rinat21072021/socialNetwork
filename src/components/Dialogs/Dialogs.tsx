@@ -1,21 +1,33 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
-import {dialogsData, messageData} from "../../Redux/state";
+import {addDialogMessage, changeDialogMessage, dialogsData, messageData} from "../../Redux/state";
 
 type DialogsPropsType = {
     dialogsData: Array<dialogsData>
     messageData: Array<messageData>
+    addDialogMessage: (newDialogMessage: string) => void
+    newDialogMessage: string
+    changeDialogMessage: (newMessage: string) => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
-    let newMessageElement = React.createRef<HTMLTextAreaElement>();
+    // let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
-    let addMessageHandler = (id: number, message:string) => {
-        if (newMessageElement.current) {
-            alert(message)
-        }
+    // let addMessageHandler = (id: number, message:string) => {
+    //     if (newMessageElement.current) {
+    //         alert(message)
+    //     }
+    //     props.addDialogMessage()
+    // };
+    let addMessageHandler = (id: number, message: string) => {
+        props.addDialogMessage(message)
+
     };
+
+    const dialogsChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeDialogMessage(e.currentTarget.value)
+    }
 
     return (
         <div className={s.diologs}>
@@ -27,14 +39,23 @@ export const Dialogs = (props: DialogsPropsType) => {
                 {props.messageData.map(m => {
 
                     return (
-                        <p><textarea
-                            key={m.id}
-                            ref={newMessageElement}>{m.message}</textarea>
-                            <button onClick={() => addMessageHandler(m.id,m.message)}>ok</button>
-                        </p>
+                        <div>
+                                <p>{m.message}</p>
+                            {/*<textarea
+                                onChange={dialogsChangeHandler}
+                                key={m.id}
+                            >
+                                {m.message}
+                            </textarea>*/}
+
+                        </div>
                     )
                 })}
-
+                <textarea
+                    value={props.newDialogMessage}
+                    onChange={dialogsChangeHandler}
+                />
+                <button onClick={() => addMessageHandler(new Date().getTime() ,props.newDialogMessage)}>ok</button>
             </div>
         </div>
     )

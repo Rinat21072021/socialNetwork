@@ -10,7 +10,7 @@ import News from './components/News/News';
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import Friends from "./components/Friends/Friends";
-import {changeNewText, postsType, stateType} from "./Redux/state";
+import {addDialogMessage, changeDialogMessage, changeNewText, postsType, stateType} from "./Redux/state";
 
 
 /*export type massageDataType={
@@ -24,7 +24,7 @@ export type dialogsDataType={
 type AppType = {
     state: stateType
     addPost: (postMessage: string) => void
-    // changeNewTextCallback:(newText:string)=>void
+
 
 
 }
@@ -41,8 +41,12 @@ const App = (props: AppType) => {
                                                                     post={props.state.ProfilePage.posts}
                                                                     message={props.state.ProfilePage.message}
                                                                     changeNewTextCallback={changeNewText}/>}/>
+
                     <Route path={'/Dialogs'} render={() => <Dialogs dialogsData={props.state.DialogPage.dialogsData}
-                                                                    messageData={props.state.DialogPage.messageData}/>}/>
+                                                                    messageData={props.state.DialogPage.messageData}
+                                                                    newDialogMessage = {props.state.DialogPage.newDialogMessage}
+                                                                    changeDialogMessage = {changeDialogMessage}
+                                                                    addDialogMessage = {addDialogMessage}/>}/>
                     <Route path={'/News'} component={News}/>
                     <Route path={'/Music'} component={Music}/>
                     <Route path={'/Setting'} component={Setting}/>

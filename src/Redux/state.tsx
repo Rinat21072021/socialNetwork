@@ -3,6 +3,7 @@ import {rerenderEntireTree} from "../Render"
 export type dialogAndMessage = {
     dialogsData: Array<dialogsData>
     messageData: Array<messageData>
+    newDialogMessage: string
 }
 export type messageData = {
     id: number
@@ -57,6 +58,7 @@ export let state: stateType = {
             {id: 3, message: 'number tree'},
             {id: 4, message: 'What to learn?'},
         ],
+        newDialogMessage: 'string'
     },
     sidebar: {},
 
@@ -72,7 +74,23 @@ export let addPost = () => {
     state.ProfilePage.message = ''
     rerenderEntireTree(state);
 }
+
 export let changeNewText = (newText: string) => {
     state.ProfilePage.message = newText;
+    rerenderEntireTree(state);
+}
+
+export const addDialogMessage = () => {
+    let newMessage = {
+        id: 5,
+        message: state.DialogPage.newDialogMessage,
+    }
+    state.DialogPage.messageData.push(newMessage);
+    state.DialogPage.newDialogMessage = '';
+    rerenderEntireTree(state);
+}
+
+export const changeDialogMessage =(newMessage:string)=>{
+    state.DialogPage.newDialogMessage = newMessage;
     rerenderEntireTree(state);
 }
