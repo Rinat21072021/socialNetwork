@@ -22,7 +22,7 @@ const Profile = (props: ProfilePropsType) => {
             <MyPost post={props.post}
                     posts={props.ProfilePage.posts}
                     addPost={props.addPost}
-                    message={props.ProfilePage.message}
+                    message={props.ProfilePage.postMessage}
                     changeNewTextCallback={props.changeNewTextCallback}
             />
         </div>

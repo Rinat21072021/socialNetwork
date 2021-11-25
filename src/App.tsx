@@ -10,7 +10,7 @@ import News from './components/News/News';
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import Friends from "./components/Friends/Friends";
-import {addDialogMessage, changeDialogMessage, changeNewText, postsType, stateType} from "./Redux/state";
+import {stateType} from "./Redux/state";
 
 
 /*export type massageDataType={
@@ -24,6 +24,9 @@ export type dialogsDataType={
 type AppType = {
     state: stateType
     addPost: (postMessage: string) => void
+    changeNewText:(newText: string)=>void
+    changeDialogMessage: (newMessage: string)=>void
+    addDialogMessage:()=>void
 
 
 
@@ -39,14 +42,14 @@ const App = (props: AppType) => {
                     <Route path={'/Profile'} render={() => <Profile ProfilePage={props.state.ProfilePage}
                                                                     addPost={props.addPost}
                                                                     post={props.state.ProfilePage.posts}
-                                                                    message={props.state.ProfilePage.message}
-                                                                    changeNewTextCallback={changeNewText}/>}/>
+                                                                    message={props.state.ProfilePage.postMessage}
+                                                                    changeNewTextCallback={props.changeNewText}/>}/>
 
                     <Route path={'/Dialogs'} render={() => <Dialogs dialogsData={props.state.DialogPage.dialogsData}
                                                                     messageData={props.state.DialogPage.messageData}
                                                                     newDialogMessage = {props.state.DialogPage.newDialogMessage}
-                                                                    changeDialogMessage = {changeDialogMessage}
-                                                                    addDialogMessage = {addDialogMessage}/>}/>
+                                                                    changeDialogMessage = {props.changeDialogMessage}
+                                                                    addDialogMessage = {props.addDialogMessage}/>}/>
                     <Route path={'/News'} component={News}/>
                     <Route path={'/Music'} component={Music}/>
                     <Route path={'/Setting'} component={Setting}/>

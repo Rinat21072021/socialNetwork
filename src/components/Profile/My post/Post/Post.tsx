@@ -1,6 +1,5 @@
 import React from 'react';
 import s from "./Post.module.css"
-import {state} from "../../../../Redux/state";
 type PostPropsType={
 
 

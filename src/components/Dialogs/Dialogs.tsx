@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
-import {addDialogMessage, changeDialogMessage, dialogsData, messageData} from "../../Redux/state";
+import { dialogsData, messageData} from "../../Redux/state";
 
 type DialogsPropsType = {
     dialogsData: Array<dialogsData>
