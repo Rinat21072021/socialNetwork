@@ -181,3 +181,4 @@ export const store: TypeStore = {
         return this._state
     }
 }
+//dispatch
