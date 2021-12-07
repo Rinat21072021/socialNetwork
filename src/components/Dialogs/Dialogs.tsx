@@ -1,32 +1,31 @@
 import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
-import {ActionTypes, dialogsData, messageData} from "../../Redux/state";
+import {
+    ActionTypes,
+    addDialogMessageActionCreator,
+    changeDialogMessageActionCreator,
+    dialogsData,
+    messageData
+} from "../../Redux/state";
 
 type DialogsPropsType = {
     dialogsData: Array<dialogsData>
     messageData: Array<messageData>
     dispatch: (action: ActionTypes) => void
     newDialogMessage: string
-    //changeDialogMessage: (newMessage: string) => void
+
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
-    // let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
-    // let addMessageHandler = (id: number, message:string) => {
-    //     if (newMessageElement.current) {
-    //         alert(message)
-    //     }
-    //     props.addDialogMessage()
-    // };
     let addMessageHandler = (id: number, message: string) => {
-        props.dispatch({type: "ADD-DIALOG-MESSAGE", newMessage: message})
+        props.dispatch(addDialogMessageActionCreator(message))
 
     };
 
     const dialogsChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "ADD-DIALOG-MESSAGE", newMessage: e.currentTarget.value})
+        props.dispatch(changeDialogMessageActionCreator(e.currentTarget.value))
     }
 
     return (

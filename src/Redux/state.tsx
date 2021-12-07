@@ -99,26 +99,42 @@ export type stateType = {
 // export const subscribe = (observe: ()=>void) => {
 //     rerenderEntireTree = observe
 // }
-type AddPostType = {
-    type: 'ADD-POST'
-    newPost: string
+// type AddPostType =  {
+//     type: 'ADD-POST'
+//     newPost: string
+//
+// }
+type AddPostType = ReturnType<typeof AddPostActionCreator>
+type ChangeNewTextType = ReturnType<typeof newPostChangeActionCreator>
+type AddDialogMessageType = ReturnType<typeof addDialogMessageActionCreator>
+type ChangeDialogMessageType = ReturnType<typeof changeDialogMessageActionCreator>
 
-}
-type AddDialogMessageType = {
-    type: 'ADD-DIALOG-MESSAGE',
-    newMessage: string
-}
-type ChangeNewTextType = {
-    type: 'CHANGE-NEW-TEXT'
-    newText: string
-}
-type ChangeDialogMessageType = {
-    type: 'CHANGE-DIALOG-MESSAGE'
-    newMessage: string
-
-}
 
 export type ActionTypes = AddPostType | AddDialogMessageType | ChangeNewTextType | ChangeDialogMessageType
+export const addDialogMessageActionCreator =(newMessage: string)=>{
+    return {
+        type: 'ADD-DIALOG-MESSAGE',
+        newMessage: newMessage
+    }as const
+}
+export const changeDialogMessageActionCreator = (newMessage:string)=>{
+    return{
+        type:'CHANGE-DIALOG-MESSAGE',
+        newMessage:newMessage
+    }as const
+}
+export const AddPostActionCreator=(newPost:string)=>{
+    return {
+        type:"ADD-POST",
+        newPost:newPost
+    } as const
+}
+export const newPostChangeActionCreator=(newText:string)=>{
+    return {
+        type:'CHANGE-NEW-TEXT',
+        newText:newText
+    } as const
+}
 
 export type TypeStore = {
     _state: stateType
@@ -197,4 +213,5 @@ export const store: TypeStore = {
             this.callSubscriber();
         }
     },
+
 }
