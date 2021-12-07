@@ -99,16 +99,32 @@ export type stateType = {
 // export const subscribe = (observe: ()=>void) => {
 //     rerenderEntireTree = observe
 // }
+type AddPostType = {
+    type: 'ADD-POST'
+    newPost: string
+
+}
+type AddDialogMessageType = {
+    type: 'ADD-DIALOG-MESSAGE',
+    newMessage: string
+}
+type ChangeNewTextType={
+    type: 'CHANGE-NEW-TEXT'
+    newText:string
+}
+
+export type ActionTypes = AddPostType | AddDialogMessageType | ChangeNewTextType
 
 export type TypeStore = {
     _state: stateType
-    addPost: () => void
+    //addPost: () => void
     changeNewText: (newText: string) => void
-    addDialogMessage: () => void
+    //addDialogMessage: () => void
     changeDialogMessage: (newMessage: string) => void
     callSubscriber: () => void
     subscribe: (callback: () => void) => void
-    getState:()=>stateType
+    getState: () => stateType
+    dispatch: (action: ActionTypes) => void
 
 }
 export const store: TypeStore = {
@@ -142,34 +158,8 @@ export const store: TypeStore = {
         sidebar: {},
 
     },
-    addPost() {
-        const newPost = {
-            id: 5,
-            message: this._state.ProfilePage.postMessage,
-            likesCount: 0,
-        }
-        this._state.ProfilePage.posts.push(newPost);
-        this._state.ProfilePage.postMessage = ''
-        this.callSubscriber();
-    },
-
-
-    changeNewText(newText: string) {
-        this._state.ProfilePage.postMessage = newText;
-        this.callSubscriber();
-    },
-    addDialogMessage() {
-        let newMessage = {
-            id: 5,
-            message: this._state.DialogPage.newDialogMessage,
-        }
-        this._state.DialogPage.messageData.push(newMessage);
-        this._state.DialogPage.newDialogMessage = '';
-        this.callSubscriber();
-    },
-    changeDialogMessage(newMessage: string) {
-        this._state.DialogPage.newDialogMessage = newMessage;
-        this.callSubscriber();
+    getState() {
+        return this._state
     },
     callSubscriber() {
         console.log('change render')
@@ -177,9 +167,43 @@ export const store: TypeStore = {
     subscribe(callback) {
         this.callSubscriber = callback
     },
-    getState(){
-        return this._state
-    }
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost = {
+                id: 5,
+                message: this._state.ProfilePage.postMessage,
+                likesCount: 0,
+            }
+            this._state.ProfilePage.posts.push(newPost);
+            this._state.ProfilePage.postMessage = ''
+            this.callSubscriber();
+
+        } else if (action.type === 'ADD-DIALOG-MESSAGE') {
+            let newMessage = {
+                id: 5,
+                message: this._state.DialogPage.newDialogMessage,
+            }
+            this._state.DialogPage.messageData.push(newMessage);
+            this._state.DialogPage.newDialogMessage = '';
+            this.callSubscriber();
+        }else if(action.type === 'CHANGE-NEW-TEXT'){
+            this._state.ProfilePage.postMessage = action.newText;
+            this.callSubscriber();
+        }
+    },
+
+
+    changeNewText(newText: string) {
+
+    },
+
+
+    changeDialogMessage(newMessage: string) {
+        this._state.DialogPage.newDialogMessage = newMessage;
+        this.callSubscriber();
+    },
+
+
 }
 //dispatch
 //dispatch

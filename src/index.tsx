@@ -11,10 +11,12 @@ export let rerender = ( ) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={store.getState()}
-                 addPost={store.addPost.bind(store)}
-                 changeNewText={store.changeNewText.bind(store)}
+
+                 dispatch={store.dispatch.bind(store)}
+                 //addPost={store.addPost.bind(store)}
+                 //changeNewText={store.changeNewText.bind(store)}
                  changeDialogMessage={store.changeDialogMessage.bind(store)}
-                 addDialogMessage={store.addDialogMessage.bind(store)}
+                 //addDialogMessage={store.addDialogMessage.bind(store)}
             />
         </BrowserRouter>, document.getElementById('root'));
 

@@ -1,12 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
-import { dialogsData, messageData} from "../../Redux/state";
+import {ActionTypes, dialogsData, messageData} from "../../Redux/state";
 
 type DialogsPropsType = {
     dialogsData: Array<dialogsData>
     messageData: Array<messageData>
-    addDialogMessage: (newDialogMessage: string) => void
+    //addDialogMessage: (newDialogMessage: string) => void
+    dispatch: (action: ActionTypes) => void
     newDialogMessage: string
     changeDialogMessage: (newMessage: string) => void
 }
@@ -21,7 +22,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     //     props.addDialogMessage()
     // };
     let addMessageHandler = (id: number, message: string) => {
-        props.addDialogMessage(message)
+        props.dispatch({type: "ADD-DIALOG-MESSAGE", newMessage: message})
 
     };
 
@@ -40,7 +41,7 @@ export const Dialogs = (props: DialogsPropsType) => {
 
                     return (
                         <div>
-                                <p>{m.message}</p>
+                            <p>{m.message}</p>
 
 
                         </div>
@@ -50,7 +51,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     value={props.newDialogMessage}
                     onChange={dialogsChangeHandler}
                 />
-                <button onClick={() => addMessageHandler(new Date().getTime() ,props.newDialogMessage)}>ok</button>
+                <button onClick={() => addMessageHandler(new Date().getTime(), props.newDialogMessage)}>ok</button>
             </div>
         </div>
     )

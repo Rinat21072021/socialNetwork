@@ -10,7 +10,7 @@ import News from './components/News/News';
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import Friends from "./components/Friends/Friends";
-import {stateType} from "./Redux/state";
+import {ActionTypes, stateType} from "./Redux/state";
 
 
 /*export type massageDataType={
@@ -23,10 +23,11 @@ export type dialogsDataType={
 }*/
 type AppType = {
     state: stateType
-    addPost: (postMessage: string) => void
-    changeNewText:(newText: string)=>void
+    //addPost: (postMessage: string) => void
+    //changeNewText:(newText: string)=>void
     changeDialogMessage: (newMessage: string)=>void
-    addDialogMessage:()=>void
+    //addDialogMessage:()=>void
+    dispatch:(action:ActionTypes)=>void
 
 
 
@@ -40,16 +41,18 @@ const App = (props: AppType) => {
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Route path={'/Profile'} render={() => <Profile ProfilePage={props.state.ProfilePage}
-                                                                    addPost={props.addPost}
+
+                                                                    dispatch={props.dispatch.bind(props.state)}
                                                                     post={props.state.ProfilePage.posts}
                                                                     message={props.state.ProfilePage.postMessage}
-                                                                    changeNewTextCallback={props.changeNewText}/>}/>
+                                                                    //changeNewTextCallback={props.changeNewText}
+                        />}/>
 
                     <Route path={'/Dialogs'} render={() => <Dialogs dialogsData={props.state.DialogPage.dialogsData}
                                                                     messageData={props.state.DialogPage.messageData}
                                                                     newDialogMessage = {props.state.DialogPage.newDialogMessage}
                                                                     changeDialogMessage = {props.changeDialogMessage}
-                                                                    addDialogMessage = {props.addDialogMessage}/>}/>
+                                                                    dispatch = {props.dispatch.bind(props.state)}/>}/>
                     <Route path={'/News'} component={News}/>
                     <Route path={'/Music'} component={Music}/>
                     <Route path={'/Setting'} component={Setting}/>
