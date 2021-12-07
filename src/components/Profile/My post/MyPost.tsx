@@ -8,7 +8,6 @@ type MyPostPropsType = {
     dispatch:(action: ActionTypes)=>void
     post: Array<postsType>
     message: string
-    //changeNewTextCallback: (newText: string) => void
 
 }
 

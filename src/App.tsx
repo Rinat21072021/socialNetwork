@@ -23,12 +23,8 @@ export type dialogsDataType={
 }*/
 type AppType = {
     state: stateType
-    //addPost: (postMessage: string) => void
-    //changeNewText:(newText: string)=>void
-    changeDialogMessage: (newMessage: string)=>void
-    //addDialogMessage:()=>void
-    dispatch:(action:ActionTypes)=>void
-
+    //changeDialogMessage: (newMessage: string)=>void
+    dispatch: (action: ActionTypes) => void
 
 
 }
@@ -45,14 +41,13 @@ const App = (props: AppType) => {
                                                                     dispatch={props.dispatch.bind(props.state)}
                                                                     post={props.state.ProfilePage.posts}
                                                                     message={props.state.ProfilePage.postMessage}
-                                                                    //changeNewTextCallback={props.changeNewText}
-                        />}/>
+
+                    />}/>
 
                     <Route path={'/Dialogs'} render={() => <Dialogs dialogsData={props.state.DialogPage.dialogsData}
                                                                     messageData={props.state.DialogPage.messageData}
-                                                                    newDialogMessage = {props.state.DialogPage.newDialogMessage}
-                                                                    changeDialogMessage = {props.changeDialogMessage}
-                                                                    dispatch = {props.dispatch.bind(props.state)}/>}/>
+                                                                    newDialogMessage={props.state.DialogPage.newDialogMessage}
+                                                                    dispatch={props.dispatch.bind(props.state)}/>}/>
                     <Route path={'/News'} component={News}/>
                     <Route path={'/Music'} component={Music}/>
                     <Route path={'/Setting'} component={Setting}/>

@@ -7,10 +7,9 @@ import {ActionTypes, postsType, ProfilePageType} from "../../Redux/state";
 type ProfilePropsType = {
     ProfilePage: ProfilePageType
     post: Array<postsType>
-    //addPost: (postMessage: string) => void
-    dispatch:(action: ActionTypes)=>void
-    message:string
-    //changeNewTextCallback:(newText:string)=>void
+    dispatch: (action: ActionTypes) => void
+    message: string
+
 }
 
 
@@ -24,7 +23,7 @@ const Profile = (props: ProfilePropsType) => {
                     posts={props.ProfilePage.posts}
                     dispatch={props.dispatch}
                     message={props.ProfilePage.postMessage}
-                    //changeNewTextCallback={props.changeNewTextCallback}
+
             />
         </div>
     )

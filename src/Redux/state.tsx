@@ -108,19 +108,20 @@ type AddDialogMessageType = {
     type: 'ADD-DIALOG-MESSAGE',
     newMessage: string
 }
-type ChangeNewTextType={
+type ChangeNewTextType = {
     type: 'CHANGE-NEW-TEXT'
-    newText:string
+    newText: string
+}
+type ChangeDialogMessageType = {
+    type: 'CHANGE-DIALOG-MESSAGE'
+    newMessage: string
+
 }
 
-export type ActionTypes = AddPostType | AddDialogMessageType | ChangeNewTextType
+export type ActionTypes = AddPostType | AddDialogMessageType | ChangeNewTextType | ChangeDialogMessageType
 
 export type TypeStore = {
     _state: stateType
-    //addPost: () => void
-    changeNewText: (newText: string) => void
-    //addDialogMessage: () => void
-    changeDialogMessage: (newMessage: string) => void
     callSubscriber: () => void
     subscribe: (callback: () => void) => void
     getState: () => stateType
@@ -186,24 +187,14 @@ export const store: TypeStore = {
             this._state.DialogPage.messageData.push(newMessage);
             this._state.DialogPage.newDialogMessage = '';
             this.callSubscriber();
-        }else if(action.type === 'CHANGE-NEW-TEXT'){
+
+        } else if (action.type === 'CHANGE-NEW-TEXT') {
             this._state.ProfilePage.postMessage = action.newText;
+            this.callSubscriber();
+
+        } else if (action.type === 'CHANGE-DIALOG-MESSAGE') {
+            this._state.DialogPage.newDialogMessage = action.newMessage;
             this.callSubscriber();
         }
     },
-
-
-    changeNewText(newText: string) {
-
-    },
-
-
-    changeDialogMessage(newMessage: string) {
-        this._state.DialogPage.newDialogMessage = newMessage;
-        this.callSubscriber();
-    },
-
-
 }
-//dispatch
-//dispatch

@@ -7,17 +7,11 @@ import App from './App';
 import {store} from "./Redux/state";
 import {BrowserRouter} from 'react-router-dom';
 
-export let rerender = ( ) => {
+export let rerender = () => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={store.getState()}
-
-                 dispatch={store.dispatch.bind(store)}
-                 //addPost={store.addPost.bind(store)}
-                 //changeNewText={store.changeNewText.bind(store)}
-                 changeDialogMessage={store.changeDialogMessage.bind(store)}
-                 //addDialogMessage={store.addDialogMessage.bind(store)}
-            />
+                 dispatch={store.dispatch.bind(store)}/>
         </BrowserRouter>, document.getElementById('root'));
 
 }
