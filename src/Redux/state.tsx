@@ -1,8 +1,9 @@
 import React from "react";
+const addPost = 'ADD-POST';
+const addDialogMessage = 'ADD-DIALOG-MESSAGE';
+const changeNewText ='CHANGE-NEW-TEXT';
+const changeDialogMessage = 'CHANGE-DIALOG-MESSAGE'
 
-// let rerenderEntireTree = () => {
-//     console.log('change render')
-// }
 
 export type dialogAndMessage = {
     dialogsData: Array<dialogsData>
@@ -106,12 +107,12 @@ export type stateType = {
 // }
 type AddPostType = ReturnType<typeof AddPostActionCreator>
 type ChangeNewTextType = ReturnType<typeof newPostChangeActionCreator>
-type AddDialogMessageType = ReturnType<typeof addDialogMessageActionCreator>
+type AddDialogMessageType = ReturnType<typeof updateNewMessageBodyCreator>
 type ChangeDialogMessageType = ReturnType<typeof changeDialogMessageActionCreator>
 
 
 export type ActionTypes = AddPostType | AddDialogMessageType | ChangeNewTextType | ChangeDialogMessageType
-export const addDialogMessageActionCreator =(newMessage: string)=>{
+export const updateNewMessageBodyCreator =(newMessage: string)=>{
     return {
         type: 'ADD-DIALOG-MESSAGE',
         newMessage: newMessage
@@ -170,7 +171,7 @@ export const store: TypeStore = {
                 {id: 3, message: 'number tree'},
                 {id: 4, message: 'What to learn?'},
             ],
-            newDialogMessage: 'string'
+            newDialogMessage: ''
         },
         sidebar: {},
 
@@ -185,7 +186,7 @@ export const store: TypeStore = {
         this.callSubscriber = callback
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === addPost) {
             const newPost = {
                 id: 5,
                 message: this._state.ProfilePage.postMessage,
@@ -195,7 +196,7 @@ export const store: TypeStore = {
             this._state.ProfilePage.postMessage = ''
             this.callSubscriber();
 
-        } else if (action.type === 'ADD-DIALOG-MESSAGE') {
+        } else if (action.type === addDialogMessage) {
             let newMessage = {
                 id: 5,
                 message: this._state.DialogPage.newDialogMessage,
@@ -204,11 +205,11 @@ export const store: TypeStore = {
             this._state.DialogPage.newDialogMessage = '';
             this.callSubscriber();
 
-        } else if (action.type === 'CHANGE-NEW-TEXT') {
+        } else if (action.type === changeNewText) {
             this._state.ProfilePage.postMessage = action.newText;
             this.callSubscriber();
 
-        } else if (action.type === 'CHANGE-DIALOG-MESSAGE') {
+        } else if (action.type === changeDialogMessage) {
             this._state.DialogPage.newDialogMessage = action.newMessage;
             this.callSubscriber();
         }

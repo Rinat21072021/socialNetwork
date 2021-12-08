@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
 import {
     ActionTypes,
-    addDialogMessageActionCreator,
+    updateNewMessageBodyCreator,
     changeDialogMessageActionCreator,
     dialogsData,
     messageData
@@ -20,7 +20,7 @@ type DialogsPropsType = {
 export const Dialogs = (props: DialogsPropsType) => {
 
     let addMessageHandler = (id: number, message: string) => {
-        props.dispatch(addDialogMessageActionCreator(message))
+        props.dispatch(updateNewMessageBodyCreator(message))
 
     };
 
@@ -29,6 +29,13 @@ export const Dialogs = (props: DialogsPropsType) => {
     }
 
     return (
+        // <div className={s.diologs}>
+        //     <div className={s.dialogItem}>
+        //
+        //     </div>
+        // </div>
+
+
         <div className={s.diologs}>
             <div className={s.dialogItem}>
                 {props.dialogsData.map(m => <p><a href='' key={m.id}>{m.name}</a></p>)}
@@ -40,8 +47,6 @@ export const Dialogs = (props: DialogsPropsType) => {
                     return (
                         <div>
                             <p>{m.message}</p>
-
-
                         </div>
                     )
                 })}
