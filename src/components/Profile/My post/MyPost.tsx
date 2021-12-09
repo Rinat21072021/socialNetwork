@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import s from "./MyPost.module.css"
 import Post from "./Post/Post";
-import {ActionTypes, AddPostActionCreator, newPostChangeActionCreator, postsType} from "../../../Redux/state";
+import {AddPostActionCreator, newPostChangeActionCreator} from "../../../Redux/Profile-reduce";
+import {ActionTypes, postsType} from "../../../Redux/state";
 
 type MyPostPropsType = {
     posts: Array<postsType>

@@ -2,12 +2,10 @@ import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
 import {
-    ActionTypes,
     updateNewMessageBodyCreator,
     changeDialogMessageActionCreator,
-    dialogsData,
-    messageData
-} from "../../Redux/state";
+} from "../../Redux/Dialog-reduce";
+import {ActionTypes, dialogsData, messageData} from "../../Redux/state";
 
 type DialogsPropsType = {
     dialogsData: Array<dialogsData>
@@ -29,12 +27,6 @@ export const Dialogs = (props: DialogsPropsType) => {
     }
 
     return (
-        // <div className={s.diologs}>
-        //     <div className={s.dialogItem}>
-        //
-        //     </div>
-        // </div>
-
 
         <div className={s.diologs}>
             <div className={s.dialogItem}>
