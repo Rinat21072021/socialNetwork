@@ -4,14 +4,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {store} from "./Redux/state";
+import {store} from "./Redux/Redux-store";
 import {BrowserRouter} from 'react-router-dom';
 
 export let rerender = () => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={store.getState()}
-                 dispatch={store.dispatch.bind(store)}/>
+                 dispatch={store.dispatch.bind(store)}
+                 />
         </BrowserRouter>, document.getElementById('root'));
 
 }

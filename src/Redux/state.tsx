@@ -29,6 +29,7 @@ export type postsType = {
 
 }
 
+
 export type stateType = {
     ProfilePage: ProfilePageType
     DialogPage: dialogAndMessage
@@ -79,7 +80,7 @@ export const store: TypeStore = {
             ],
             newDialogMessage: ''
         },
-        Sidebar: {},
+        Sidebar:{},
 
     },
     getState() {

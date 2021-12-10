@@ -13,18 +13,10 @@ import Friends from "./components/Friends/Friends";
 import {ActionTypes, stateType} from "./Redux/state";
 
 
-/*export type massageDataType={
-    id:number
-    message:string
-}
-export type dialogsDataType={
-    id: number
-    name:string
-}*/
 type AppType = {
     state: stateType
-    //changeDialogMessage: (newMessage: string)=>void
     dispatch: (action: ActionTypes) => void
+
 
 
 }

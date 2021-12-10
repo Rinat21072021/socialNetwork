@@ -7,8 +7,17 @@ const changeNewText = 'CHANGE-NEW-TEXT';
 // type ActionsType =
 //     | ReturnType<typeof AddPostActionCreator>
 //     | ReturnType<typeof newPostChangeActionCreator>
+const initialState = {
+    postMessage: '',
+    posts: [
+        {id: 1, message: 'Hi, how are you?', likesCount: 15},
+        {id: 2, message: 'Hi, message', likesCount: 20},
+        {id: 3, message: 'Hi, Serg', likesCount: 30},
+        {id: 4, message: 'Hi, Nikola', likesCount: 10}],
 
-export const ProfileReduce = (state: ProfilePageType, action: ActionTypes) => {
+}
+
+export const ProfileReduce = (state: ProfilePageType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case addPost:
             const newPost = {
