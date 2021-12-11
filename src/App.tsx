@@ -10,13 +10,14 @@ import News from './components/News/News';
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import Friends from "./components/Friends/Friends";
-import {ActionTypes, stateType} from "./Redux/state";
+import { TypeStore} from "./Redux/state";
+
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {ReduxStoreType} from "./Redux/Redux-store";
 
 
 type AppType = {
-    state: stateType
-    dispatch: (action: ActionTypes) => void
-
+    store: ReduxStoreType
 
 
 }
@@ -28,18 +29,9 @@ const App = (props: AppType) => {
                 <Header/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/Profile'} render={() => <Profile ProfilePage={props.state.ProfilePage}
+                    <Route path={'/Profile'} render={() => <Profile store={props.store}/>}/>
 
-                                                                    dispatch={props.dispatch.bind(props.state)}
-                                                                    post={props.state.ProfilePage.posts}
-                                                                    message={props.state.ProfilePage.postMessage}
-
-                    />}/>
-
-                    <Route path={'/Dialogs'} render={() => <Dialogs dialogsData={props.state.DialogPage.dialogsData}
-                                                                    messageData={props.state.DialogPage.messageData}
-                                                                    newDialogMessage={props.state.DialogPage.newDialogMessage}
-                                                                    dispatch={props.dispatch.bind(props.state)}/>}/>
+                    <Route path={'/Dialogs'} render={() => <DialogsContainer store={props.store}/>}/>
                     <Route path={'/News'} component={News}/>
                     <Route path={'/Music'} component={Music}/>
                     <Route path={'/Setting'} component={Setting}/>

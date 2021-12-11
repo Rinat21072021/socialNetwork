@@ -1,40 +1,42 @@
 import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
-import {
-    updateNewMessageBodyCreator,
-    changeDialogMessageActionCreator,
-} from "../../Redux/Dialog-reduce";
-import {ActionTypes, dialogsData, messageData} from "../../Redux/state";
+
+import {ActionTypes, dialogAndMessage, dialogsData, messageData} from "../../Redux/state";
 
 type DialogsPropsType = {
-    dialogsData: Array<dialogsData>
-    messageData: Array<messageData>
-    dispatch: (action: ActionTypes) => void
-    newDialogMessage: string
+    // dialogsData: Array<dialogsData>
+    // messageData: Array<messageData>
+    // dispatch: (action: ActionTypes) => void
+    // newDialogMessage: string
+
+    updateNewMessageBody: (id: number, message: string) => void
+    dialogsChange: (textBody: string) => void
+    state:dialogAndMessage
 
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
     let addMessageHandler = (id: number, message: string) => {
-        props.dispatch(updateNewMessageBodyCreator(message))
+        props.updateNewMessageBody(id,message)
 
     };
 
-    const dialogsChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeDialogMessageActionCreator(e.currentTarget.value))
+    const dialogsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let textBody = e.currentTarget.value
+        props.dialogsChange(textBody)
     }
 
     return (
 
         <div className={s.diologs}>
             <div className={s.dialogItem}>
-                {props.dialogsData.map(m => <p><a href='' key={m.id}>{m.name}</a></p>)}
+                {props.state.dialogsData.map(m => <p><a href='' key={m.id}>{m.name}</a></p>)}
             </div>
 
             <div className={s.massages}>
-                {props.messageData.map(m => {
+                {props.state.messageData.map(m => {
 
                     return (
                         <div>
@@ -43,10 +45,10 @@ export const Dialogs = (props: DialogsPropsType) => {
                     )
                 })}
                 <textarea
-                    value={props.newDialogMessage}
-                    onChange={dialogsChangeHandler}
+                    value={props.state.newDialogMessage}
+                    onChange={dialogsChange}
                 />
-                <button onClick={() => addMessageHandler(new Date().getTime(), props.newDialogMessage)}>ok</button>
+                <button onClick={() => addMessageHandler(new Date().getTime(), props.state.newDialogMessage)}>ok</button>
             </div>
         </div>
     )

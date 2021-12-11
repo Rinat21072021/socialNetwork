@@ -1,28 +1,26 @@
 import React, {ChangeEvent} from 'react';
 import s from "./MyPost.module.css"
-import Post from "./Post/Post";
-import {AddPostActionCreator, newPostChangeActionCreator} from "../../../Redux/Profile-reduce";
-import {ActionTypes, postsType} from "../../../Redux/state";
+import {postsType} from "../../../Redux/state";
 
 type MyPostPropsType = {
     posts: Array<postsType>
-    dispatch:(action: ActionTypes)=>void
-    post: Array<postsType>
     message: string
+    onAddPostHandler: (message: string) => void
+    newPostChange: (newText: string) => void
 
 }
 
 const MyPost = (props: MyPostPropsType) => {
 
-    const addPostHandler = () => {
-        props.dispatch(AddPostActionCreator(props.message))
+    const onAddPostHandler = () => {
+        props.onAddPostHandler(props.message)
     }
 
     let postElement =
         props.posts.map(p => <div>{p.message}<p>{p.likesCount}</p></div>)
 
-    const newPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(newPostChangeActionCreator(e.currentTarget.value))
+    const newPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.newPostChange(e.currentTarget.value)
     }
     return (
         <div className={s.postBlock}>
@@ -30,10 +28,10 @@ const MyPost = (props: MyPostPropsType) => {
             <div>
                 <div>
                     <textarea value={props.message}
-                              onChange={newPostChangeHandler}/>
+                              onChange={newPostChange}/>
                 </div>
                 <div>
-                    <button onClick={addPostHandler}>Add post</button>
+                    <button onClick={onAddPostHandler}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

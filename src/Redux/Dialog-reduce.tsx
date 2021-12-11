@@ -1,4 +1,4 @@
-import {ActionTypes, dialogAndMessage, dialogsData} from "./state";
+import {ActionTypes, dialogAndMessage} from "./state";
 
 const addDialogMessage = 'ADD-DIALOG-MESSAGE';
 const changeDialogMessage = 'CHANGE-DIALOG-MESSAGE'
