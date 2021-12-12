@@ -21,7 +21,7 @@ type AppType = {
 
 
 }
-
+//context API
 const App = (props: AppType) => {
     return (
         <BrowserRouter>
