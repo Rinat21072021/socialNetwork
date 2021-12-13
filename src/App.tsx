@@ -17,21 +17,22 @@ import {ReduxStoreType} from "./Redux/Redux-store";
 
 
 type AppType = {
-    store: ReduxStoreType
+    //store: ReduxStoreType
 
 
 }
-//context API
-const App = (props: AppType) => {
+
+const App = (props:AppType) => {
     return (
         <BrowserRouter>
+
             <div className={'app-wrapper'}>
                 <Header/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/Profile'} render={() => <Profile store={props.store}/>}/>
+                    <Route path={'/Profile'} render={() => <Profile/>}/>
 
-                    <Route path={'/Dialogs'} render={() => <DialogsContainer store={props.store}/>}/>
+                    <Route path={'/Dialogs'} render={() => <DialogsContainer />}/>
                     <Route path={'/News'} component={News}/>
                     <Route path={'/Music'} component={Music}/>
                     <Route path={'/Setting'} component={Setting}/>

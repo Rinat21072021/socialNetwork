@@ -37,10 +37,9 @@ export const ProfileReduce = (state: ProfilePageType = initialState, action: Act
             return state
     }
 }
-export const AddPostActionCreator = (newPost: string) => {
+export const AddPostActionCreator = () => {
     return {
         type: addPost,
-        newPost: newPost
     } as const
 }
 export const newPostChangeActionCreator = (newText: string) => {

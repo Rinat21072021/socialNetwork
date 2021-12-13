@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
 
 import {ActionTypes, dialogAndMessage, dialogsData, messageData} from "../../Redux/state";
+import {OwnType} from "./DialogsContainer";
 
 type DialogsPropsType = {
     // dialogsData: Array<dialogsData>
@@ -10,13 +11,13 @@ type DialogsPropsType = {
     // dispatch: (action: ActionTypes) => void
     // newDialogMessage: string
 
-    updateNewMessageBody: (id: number, message: string) => void
-    dialogsChange: (textBody: string) => void
-    state:dialogAndMessage
+    // updateNewMessageBody: (id: number, message: string) => void
+    // dialogsChange: (textBody: string) => void
+    // state:dialogAndMessage
 
 }
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs = (props: OwnType) => {
 
     let addMessageHandler = (id: number, message: string) => {
         props.updateNewMessageBody(id,message)
@@ -25,18 +26,17 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const dialogsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let textBody = e.currentTarget.value
-        props.dialogsChange(textBody)
+        props.changeDialogMessage(textBody)
     }
 
     return (
-
-        <div className={s.diologs}>
+        <div className={s.dialogs}>
             <div className={s.dialogItem}>
-                {props.state.dialogsData.map(m => <p><a href='' key={m.id}>{m.name}</a></p>)}
+                {props.DialogsPage.dialogsData.map(m => <p><a href='' key={m.id}>{m.name}</a></p>)}
             </div>
 
             <div className={s.massages}>
-                {props.state.messageData.map(m => {
+                {props.DialogsPage.messageData.map(m => {
 
                     return (
                         <div>
@@ -45,10 +45,10 @@ export const Dialogs = (props: DialogsPropsType) => {
                     )
                 })}
                 <textarea
-                    value={props.state.newDialogMessage}
+                    value={props.DialogsPage.newDialogMessage}
                     onChange={dialogsChange}
                 />
-                <button onClick={() => addMessageHandler(new Date().getTime(), props.state.newDialogMessage)}>ok</button>
+                <button onClick={() => addMessageHandler(new Date().getTime(), props.DialogsPage.newDialogMessage)}>ok</button>
             </div>
         </div>
     )

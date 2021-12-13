@@ -1,9 +1,25 @@
-import {ActionTypes, dialogAndMessage} from "./state";
+import {ActionTypes} from "./state";
 
 const addDialogMessage = 'ADD-DIALOG-MESSAGE';
 const changeDialogMessage = 'CHANGE-DIALOG-MESSAGE'
 
-const initialState = {
+export type messageData = {
+    id: number
+    message: string
+}
+export type dialogsData = {
+    id: number
+    name: string
+
+}
+
+export type dialogAndMessage = {
+    dialogsData: Array<dialogsData>
+    messageData: Array<messageData>
+    newDialogMessage: string
+}
+
+const initialState:dialogAndMessage = {
     dialogsData: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrye'},
@@ -20,7 +36,7 @@ const initialState = {
     ],
     newDialogMessage: ''
 }
-export const DialogReduce=(state:dialogAndMessage = initialState, action:ActionTypes)=>{
+export const DialogReduce=(state:dialogAndMessage = initialState, action:ActionTypes):dialogAndMessage=>{
 
     switch (action.type){
         case addDialogMessage:

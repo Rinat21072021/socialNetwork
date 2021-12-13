@@ -11,7 +11,7 @@ type ProfilePropsType = {
     // post: Array<postsType>
     // dispatch: (action: ActionTypes) => void
     // message: string
-    store:ReduxStoreType
+    //store:ReduxStoreType
 
 }
 
@@ -22,7 +22,7 @@ const Profile = (props: ProfilePropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostContainer store={props.store}/>
+            <MyPostContainer />
             {/*<MyPost post={props.post}*/}
             {/*        posts={props.ProfilePage.posts}*/}
             {/*        dispatch={props.dispatch}*/}

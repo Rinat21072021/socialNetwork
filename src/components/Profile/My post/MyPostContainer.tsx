@@ -1,28 +1,50 @@
 import React from 'react';
 import {AddPostActionCreator, newPostChangeActionCreator} from "../../../Redux/Profile-reduce";
-import { TypeStore} from "../../../Redux/state";
+import {postsType} from "../../../Redux/state";
 import MyPost from "./MyPost";
-import {ReduxStoreType} from "../../../Redux/Redux-store";
+import {AppStateType} from "../../../Redux/Redux-store";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
 
 type MyPostPropsType = {
-    store:ReduxStoreType
+    //store:ReduxStoreType
 
 }
-
-const MyPostContainer = (props: MyPostPropsType) => {
-
-    const addPostHandler = (message:string) => {
-        props.store.dispatch(AddPostActionCreator(message))
-    }
-
-
-    const newPostChangeHandler = (newText: string) => {
-        props.store.dispatch(newPostChangeActionCreator(newText))
-    }
-    return <MyPost message={props.store.getState().ProfilePage.postMessage}
-                   onAddPostHandler={addPostHandler}
-                   newPostChange={newPostChangeHandler}
-                   posts={props.store.getState().ProfilePage.posts}/>
+type mapStateToPropsType={
+    posts: Array<postsType>
+    postMessage: string
 }
+
+type MapDispatchToPropsType = {
+    updateNewPostText: (text: string) => void
+    addPost: () => void
+}
+
+export type OwnType = MapDispatchToPropsType & mapStateToPropsType
+
+//const MyPostContainer()=>connect()(MyPost)
+
+
+
+
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        posts: state.ProfilePage.posts,
+        postMessage: state.ProfilePage.postMessage
+    }
+}
+
+const MapDispatchToProps = (dispatch:Dispatch): MapDispatchToPropsType => {
+    return {
+        updateNewPostText: (text: string) => {
+            dispatch(newPostChangeActionCreator(text))
+        },
+        addPost: () => {
+            dispatch(AddPostActionCreator())
+        },
+    }
+}
+
+const MyPostContainer = connect(mapStateToProps, MapDispatchToProps)(MyPost)
 export default MyPostContainer;

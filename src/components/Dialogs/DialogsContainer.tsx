@@ -1,36 +1,64 @@
 import React, {ChangeEvent} from 'react';
-
-import s from './Dialogs.module.css'
 import {
     updateNewMessageBodyCreator,
     changeDialogMessageActionCreator,
 } from "../../Redux/Dialog-reduce";
-import {ActionTypes, dialogsData, messageData, TypeStore} from "../../Redux/state";
+import {dialogAndMessage} from "../../Redux/state";
 import Dialogs from "./Dialogs";
-import {ReduxStoreType} from "../../Redux/Redux-store";
+import {connect} from "react-redux";
+import {AppStateType} from "../../Redux/Redux-store";
+import { Dispatch } from 'redux';
 
-type DialogsPropsType = {
-    store: ReduxStoreType
-    // dialogsData: Array<dialogsData>
-    // messageData: Array<messageData>
+// type DialogsPropsType = {
+    // store: ReduxStoreType
+    // // dialogsData: Array<dialogsData>
+    // // messageData: Array<messageData>
     // dispatch: (action: ActionTypes) => void
     // newDialogMessage: string
 
+// }
+
+// export const DialogsContainer = (props: DialogsPropsType) => {
+//     let state = props.store.getState().DialogPage
+//
+//     let addMessageHandler = (id: number, message: string) => {
+//         props.store.dispatch(updateNewMessageBodyCreator(message))
+//
+//     };
+//
+//     const dialogsChangeHandler = (textBody: string) => {
+//         props.store.dispatch(changeDialogMessageActionCreator(textBody))
+//     }
+//
+//     return <Dialogs updateNewMessageBody={addMessageHandler} dialogsChange={dialogsChangeHandler} state={state}/>
+//
+// }
+type MSTPropsType={
+    DialogsPage:dialogAndMessage
 }
 
-export const DialogsContainer = (props: DialogsPropsType) => {
-    let state = props.store.getState().DialogPage
+type MDTPropsType={
+    updateNewMessageBody:(id: number, message: string)=>void
+    changeDialogMessage:(textBody:string)=>void
+}
 
-    let addMessageHandler = (id: number, message: string) => {
-        props.store.dispatch(updateNewMessageBodyCreator(message))
+export type OwnType = MSTPropsType & MDTPropsType
 
-    };
+const mapStateToProps=(state:AppStateType):MSTPropsType=>{
+    return {DialogsPage:state.DialogPage}
+}
 
-    const dialogsChangeHandler = (textBody: string) => {
-        props.store.dispatch(changeDialogMessageActionCreator(textBody))
+const mapDispatchToProps=(dispatch:Dispatch):MDTPropsType=>{
+    return{
+        updateNewMessageBody:(id: number, message: string)=>{
+            dispatch(updateNewMessageBodyCreator(message))
+        },
+        changeDialogMessage:(textBody:string)=>{
+            dispatch(changeDialogMessageActionCreator(textBody))
+        }
     }
-
-    return <Dialogs updateNewMessageBody={addMessageHandler} dialogsChange={dialogsChangeHandler} state={state}/>
-
 }
+
+const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+
 export default DialogsContainer

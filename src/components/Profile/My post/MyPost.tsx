@@ -1,33 +1,34 @@
 import React, {ChangeEvent} from 'react';
 import s from "./MyPost.module.css"
 import {postsType} from "../../../Redux/state";
+import {OwnType} from "./MyPostContainer";
 
-type MyPostPropsType = {
-    posts: Array<postsType>
-    message: string
-    onAddPostHandler: (message: string) => void
-    newPostChange: (newText: string) => void
+// type MyPostPropsType = {
+//     posts: Array<postsType>
+//     message: string
+//     onAddPostHandler: () => void
+//     newPostChange: (newText: string) => void
+//
+// }
 
-}
-
-const MyPost = (props: MyPostPropsType) => {
+const MyPost = (props: OwnType) => {
 
     const onAddPostHandler = () => {
-        props.onAddPostHandler(props.message)
+        props.addPost()
     }
 
     let postElement =
         props.posts.map(p => <div>{p.message}<p>{p.likesCount}</p></div>)
 
     const newPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.newPostChange(e.currentTarget.value)
+        props.updateNewPostText(e.currentTarget.value)
     }
     return (
         <div className={s.postBlock}>
             <h3>My post</h3>
             <div>
                 <div>
-                    <textarea value={props.message}
+                    <textarea value={props.postMessage}
                               onChange={newPostChange}/>
                 </div>
                 <div>
