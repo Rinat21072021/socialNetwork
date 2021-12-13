@@ -41,7 +41,7 @@ type MDTPropsType={
     updateNewMessageBody:(id: number, message: string)=>void
     changeDialogMessage:(textBody:string)=>void
 }
-
+//type
 export type OwnType = MSTPropsType & MDTPropsType
 
 const mapStateToProps=(state:AppStateType):MSTPropsType=>{
