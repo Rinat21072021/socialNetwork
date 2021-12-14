@@ -19,7 +19,7 @@ export type dialogAndMessage = {
     newDialogMessage: string
 }
 
-const initialState:dialogAndMessage = {
+const initialState: dialogAndMessage = {
     dialogsData: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrye'},
@@ -36,7 +36,7 @@ const initialState:dialogAndMessage = {
     ],
     newDialogMessage: ''
 }
-export const DialogReduce=(state:dialogAndMessage = initialState, action:ActionTypes):dialogAndMessage=>{
+export const DialogReduce = (state: dialogAndMessage = initialState, action: ActionTypes): dialogAndMessage => {
 
     switch (action.type) {
         case addDialogMessage: {
@@ -44,16 +44,15 @@ export const DialogReduce=(state:dialogAndMessage = initialState, action:ActionT
                 id: 5,
                 message: state.newDialogMessage,
             }
-            let stateCopy = {...state, ...state.messageData[state.messageData.push(newMessage)]}
-            // state.messageData.push(newMessage);
+            let stateCopy = {...state, messageData: [...state.messageData, newMessage]}
             stateCopy.newDialogMessage = '';
             return stateCopy;
         }
-        case changeDialogMessage:{
+        case changeDialogMessage: {
             let stateCopy = {...state}
             stateCopy.newDialogMessage = action.newMessage;
             return stateCopy
-    }
+        }
         default:
             return state
     }

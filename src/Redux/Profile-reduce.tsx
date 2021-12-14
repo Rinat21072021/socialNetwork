@@ -25,8 +25,8 @@ export const ProfileReduce = (state: ProfilePageType = initialState, action: Act
                 message: state.postMessage,
                 likesCount: 0,
             }
-            let stateCopy = {...state, ...state.posts[state.posts.push(newPost)]}
-            stateCopy.postMessage = ''
+            let stateCopy = {...state,posts:[...state.posts, newPost]}
+                 stateCopy.postMessage = ''
             return stateCopy
         }
         case changeNewText: {
