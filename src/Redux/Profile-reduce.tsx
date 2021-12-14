@@ -19,22 +19,24 @@ const initialState = {
 
 export const ProfileReduce = (state: ProfilePageType = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case addPost:
+        case addPost: {
             const newPost = {
                 id: 5,
                 message: state.postMessage,
                 likesCount: 0,
             }
-            state.posts.push(newPost);
-            state.postMessage = ''
+            let stateCopy = {...state, ...state.posts[state.posts.push(newPost)]}
+            stateCopy.postMessage = ''
+            return stateCopy
+        }
+        case changeNewText: {
+            let stateCopy = {...state}
+            stateCopy.postMessage = action.newText;
+            return stateCopy
+        }
+        default: {
             return state
-
-        case changeNewText:
-            state.postMessage = action.newText;
-            return state
-
-        default:
-            return state
+        }
     }
 }
 export const AddPostActionCreator = () => {

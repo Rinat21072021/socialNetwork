@@ -38,18 +38,22 @@ const initialState:dialogAndMessage = {
 }
 export const DialogReduce=(state:dialogAndMessage = initialState, action:ActionTypes):dialogAndMessage=>{
 
-    switch (action.type){
-        case addDialogMessage:
+    switch (action.type) {
+        case addDialogMessage: {
             let newMessage = {
                 id: 5,
                 message: state.newDialogMessage,
             }
-            state.messageData.push(newMessage);
-            state.newDialogMessage = '';
-            return state;
-        case changeDialogMessage:
-            state.newDialogMessage = action.newMessage;
-            return state
+            let stateCopy = {...state, ...state.messageData[state.messageData.push(newMessage)]}
+            // state.messageData.push(newMessage);
+            stateCopy.newDialogMessage = '';
+            return stateCopy;
+        }
+        case changeDialogMessage:{
+            let stateCopy = {...state}
+            stateCopy.newDialogMessage = action.newMessage;
+            return stateCopy
+    }
         default:
             return state
     }
