@@ -7,10 +7,6 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
 
-type MyPostPropsType = {
-    //store:ReduxStoreType
-
-}
 type mapStateToPropsType={
     posts: Array<postsType>
     postMessage: string
@@ -22,11 +18,6 @@ type MapDispatchToPropsType = {
 }
 
 export type OwnType = MapDispatchToPropsType & mapStateToPropsType
-
-//const MyPostContainer()=>connect()(MyPost)
-
-
-
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {

@@ -8,45 +8,50 @@ const changeNewText = 'CHANGE-NEW-TEXT';
 //     | ReturnType<typeof AddPostActionCreator>
 //     | ReturnType<typeof newPostChangeActionCreator>
 const initialState = {
-    postMessage: '',
-    posts: [
-        {id: 1, message: 'Hi, how are you?', likesCount: 15},
-        {id: 2, message: 'Hi, message', likesCount: 20},
-        {id: 3, message: 'Hi, Serg', likesCount: 30},
-        {id: 4, message: 'Hi, Nikola', likesCount: 10}],
+	postMessage: '',
+	posts: [
+		{id: 1, message: 'Hi, how are you?', likesCount: 15},
+		{id: 2, message: 'Hi, message', likesCount: 20},
+		{id: 3, message: 'Hi, Serg', likesCount: 30},
+		{id: 4, message: 'Hi, Nikola', likesCount: 10}],
 
 }
 
 export const ProfileReduce = (state: ProfilePageType = initialState, action: ActionTypes) => {
-    switch (action.type) {
-        case addPost: {
-            const newPost = {
-                id: 5,
-                message: state.postMessage,
-                likesCount: 0,
-            }
-            let stateCopy = {...state,posts:[...state.posts, newPost]}
-                 stateCopy.postMessage = ''
-            return stateCopy
-        }
-        case changeNewText: {
-            let stateCopy = {...state}
-            stateCopy.postMessage = action.newText;
-            return stateCopy
-        }
-        default: {
-            return state
-        }
-    }
+
+	switch (action.type) {
+
+		case addPost: {
+			let id = new Date()
+			const newPost = {
+				id: id.getTime(),
+				message: state.postMessage,
+				likesCount: 0,
+			}
+			console.log(state)
+			return {...state, posts: [...state.posts, newPost], postMessage: ''}
+
+			//      stateCopy.postMessage = ''
+			// return stateCopy
+		}
+		case changeNewText: {
+			return {...state, postMessage: action.newText}
+			// stateCopy.postMessage = action.newText;
+			// return stateCopy
+		}
+		default: {
+			return state
+		}
+	}
 }
 export const AddPostActionCreator = () => {
-    return {
-        type: addPost,
-    } as const
+	return {
+		type: addPost,
+	} as const
 }
 export const newPostChangeActionCreator = (newText: string) => {
-    return {
-        type: changeNewText,
-        newText: newText
-    } as const
+	return {
+		type: changeNewText,
+		newText: newText
+	} as const
 }

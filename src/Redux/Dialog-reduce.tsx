@@ -44,14 +44,14 @@ export const DialogReduce = (state: dialogAndMessage = initialState, action: Act
                 id: 5,
                 message: state.newDialogMessage,
             }
-            let stateCopy = {...state, messageData: [...state.messageData, newMessage]}
-            stateCopy.newDialogMessage = '';
-            return stateCopy;
+            return {...state, messageData: [...state.messageData, newMessage,],newDialogMessage: ''}
+            // stateCopy.newDialogMessage = '';
+            // return stateCopy;
         }
         case changeDialogMessage: {
-            let stateCopy = {...state}
-            stateCopy.newDialogMessage = action.newMessage;
-            return stateCopy
+            return {...state,newDialogMessage: action.newMessage}
+            // stateCopy.newDialogMessage = action.newMessage;
+            // return stateCopy
         }
         default:
             return state
