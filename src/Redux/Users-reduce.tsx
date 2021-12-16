@@ -17,6 +17,7 @@ type LocationType = {
 }
 export type UserType = {
 	id: number
+	photoUrl:string
 	followed: boolean
 	fullName: string
 	status: string
@@ -31,6 +32,7 @@ const initialState: StateType = {
 	users: [
 		{
 			id: 1,
+			photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
 			followed: true,
 			fullName: 'Rinat',
 			status: "Learn to React",
@@ -38,6 +40,7 @@ const initialState: StateType = {
 		},
 		{
 			id: 2,
+			photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
 			followed: true,
 			fullName: 'Ruslan',
 			status: "Sponsor",
@@ -45,6 +48,7 @@ const initialState: StateType = {
 		},
 		{
 			id: 3,
+			photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
 			followed: true,
 			fullName: 'Sergei',
 			status: "Learn to JS",
