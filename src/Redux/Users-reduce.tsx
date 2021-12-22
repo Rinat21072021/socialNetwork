@@ -17,11 +17,11 @@ type LocationType = {
 }
 export type UserType = {
 	id: number
-	photoUrl:string
+	photos:string
 	followed: boolean
-	fullName: string
+	name: string
 	status: string
-	location: LocationType
+	// location: LocationType
 
 }
 export type StateType = {
@@ -30,30 +30,30 @@ export type StateType = {
 
 const initialState: StateType = {
 	users: [
-		{
-			id: 1,
-			photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
-			followed: true,
-			fullName: 'Rinat',
-			status: "Learn to React",
-			location: {city: 'Moscow', country: 'Russia'}
-		},
-		{
-			id: 2,
-			photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
-			followed: true,
-			fullName: 'Ruslan',
-			status: "Sponsor",
-			location: {city: 'Moscow', country: 'Russia'}
-		},
-		{
-			id: 3,
-			photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
-			followed: true,
-			fullName: 'Sergei',
-			status: "Learn to JS",
-			location: {city: 'Kazan', country: 'Russia'}
-		},
+		// {
+		// 	id: 1,
+		// 	photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
+		// 	followed: true,
+		// 	fullName: 'Rinat',
+		// 	status: "Learn to React",
+		// 	location: {city: 'Moscow', country: 'Russia'}
+		// },
+		// {
+		// 	id: 2,
+		// 	photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
+		// 	followed: true,
+		// 	fullName: 'Ruslan',
+		// 	status: "Sponsor",
+		// 	location: {city: 'Moscow', country: 'Russia'}
+		// },
+		// {
+		// 	id: 3,
+		// 	photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
+		// 	followed: true,
+		// 	fullName: 'Sergei',
+		// 	status: "Learn to JS",
+		// 	location: {city: 'Kazan', country: 'Russia'}
+		// },
 	]
 }
 
@@ -65,7 +65,7 @@ export const UsersReduce = (state: StateType = initialState, action: FollowActio
 		case UNFOLLOW:
 			return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : el)}
 		case SET_USERS:
-			return {...state, users: [...state.users, action.users]}
+			return {...state, users:  action.users}
 		default: {
 			return state
 		}
@@ -83,7 +83,7 @@ export const unfollowAC = (userID: number) => {
 		userID
 	} as const
 }
-export const setUsersAC = (users: UserType) => {
+export const setUsersAC = (users:Array<UserType> ) => {
 	return {
 		type: SET_USERS,
 		users
