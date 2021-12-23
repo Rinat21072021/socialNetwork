@@ -32,7 +32,7 @@ export const Dialogs = (props: OwnType) => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItem}>
-                {props.DialogsPage.dialogsData.map(m => <p><a href='' key={m.id}>{m.name}</a></p>)}
+                {props.DialogsPage.dialogsData.map(m => <p key={m.id}><a href='' key={m.id}>{m.name}</a></p>)}
             </div>
 
             <div className={s.massages}>
