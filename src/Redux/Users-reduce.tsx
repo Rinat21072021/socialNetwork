@@ -1,14 +1,16 @@
-
-
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS'
+const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
 
 
 export type FollowActionsType =
 	| ReturnType<typeof followAC>
 	| ReturnType<typeof unfollowAC>
 	| ReturnType<typeof setUsersAC>
+	| ReturnType<typeof setCurrenPageAC>
+	| ReturnType<typeof setUsersTotalCountAC>
 
 type LocationType = {
 	city: string
@@ -17,9 +19,9 @@ type LocationType = {
 }
 export type UserType = {
 	id: number
-	photos:{
-		small:string
-		large:string
+	photos: {
+		small: string
+		large: string
 	}
 	followed: boolean
 	name: string
@@ -29,35 +31,16 @@ export type UserType = {
 }
 export type StateType = {
 	users: Array<UserType>
+	pageSize: number
+	totalUsersCount: number
+	currentPage: number
 }
 
 const initialState: StateType = {
-	users: [
-		// {
-		// 	id: 1,
-		// 	photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
-		// 	followed: true,
-		// 	fullName: 'Rinat',
-		// 	status: "Learn to React",
-		// 	location: {city: 'Moscow', country: 'Russia'}
-		// },
-		// {
-		// 	id: 2,
-		// 	photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
-		// 	followed: true,
-		// 	fullName: 'Ruslan',
-		// 	status: "Sponsor",
-		// 	location: {city: 'Moscow', country: 'Russia'}
-		// },
-		// {
-		// 	id: 3,
-		// 	photoUrl:'https://2x2tv.ru/upload/setka-editor/3d7/3d71249fd2a309448ee61914fa923e1d.jpg',
-		// 	followed: true,
-		// 	fullName: 'Sergei',
-		// 	status: "Learn to JS",
-		// 	location: {city: 'Kazan', country: 'Russia'}
-		// },
-	]
+	users: [],
+	pageSize: 5,
+	totalUsersCount: 20,
+	currentPage: 1,
 }
 
 export const UsersReduce = (state: StateType = initialState, action: FollowActionsType): StateType => {
@@ -68,7 +51,11 @@ export const UsersReduce = (state: StateType = initialState, action: FollowActio
 		case UNFOLLOW:
 			return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : el)}
 		case SET_USERS:
-			return {...state, users:  action.users}
+			return {...state, users: action.users}
+		case SET_CURRENT_PAGE:
+			return {...state, currentPage: action.currentPage}
+		case SET_USERS_TOTAL_COUNT:
+			return {...state, currentPage: action.totalCount}
 		default: {
 			return state
 		}
@@ -86,9 +73,23 @@ export const unfollowAC = (userID: number) => {
 		userID
 	} as const
 }
-export const setUsersAC = (users:Array<UserType> ) => {
+export const setUsersAC = (users: Array<UserType>) => {
 	return {
 		type: SET_USERS,
 		users
 	} as const
+}
+export const setCurrenPageAC = (currentPage: number) => {
+	return {
+		type: SET_CURRENT_PAGE,
+		currentPage
+	} as const
+
+}
+export const setUsersTotalCountAC = (totalCount: number) => {
+	return {
+		type: SET_USERS_TOTAL_COUNT,
+		totalCount
+	} as const
+
 }
