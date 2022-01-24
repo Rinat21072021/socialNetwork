@@ -1,5 +1,5 @@
 import React from "react";
-import {AddPostActionCreator, newPostChangeActionCreator, ProfileReduce} from "./Profile-reduce";
+import {AddPostActionCreator, newPostChangeActionCreator, ProfileReduce, setUserProfile} from "./Profile-reduce";
 import {changeDialogMessageActionCreator, DialogReduce, updateNewMessageBodyCreator} from "./Dialog-reduce";
 import {SidebarReduce} from "./Sidebar-reduce";
 
@@ -21,6 +21,9 @@ export type dialogsData = {
 export type ProfilePageType = {
     posts: Array<postsType>
     postMessage: string
+    profile:any
+
+
 }
 export type postsType = {
     id: number
@@ -40,8 +43,9 @@ type AddPostType = ReturnType<typeof AddPostActionCreator>
 type ChangeNewTextType = ReturnType<typeof newPostChangeActionCreator>
 type AddDialogMessageType = ReturnType<typeof updateNewMessageBodyCreator>
 type ChangeDialogMessageType = ReturnType<typeof changeDialogMessageActionCreator>
+type setUserProfile = ReturnType<typeof setUserProfile>
 
-export type ActionTypes = AddPostType | AddDialogMessageType | ChangeNewTextType | ChangeDialogMessageType
+export type ActionTypes = AddPostType | AddDialogMessageType | ChangeNewTextType | ChangeDialogMessageType | setUserProfile
 
 export type TypeStore = {
     _state: stateType
@@ -61,6 +65,7 @@ export const store: TypeStore = {
                 {id: 2, message: 'Hi, message', likesCount: 20},
                 {id: 3, message: 'Hi, Serg', likesCount: 30},
                 {id: 4, message: 'Hi, Nikola', likesCount: 10}],
+            profile:null
 
         },
         DialogPage: {
@@ -79,6 +84,7 @@ export const store: TypeStore = {
                 {id: 4, message: 'What to learn?'},
             ],
             newDialogMessage: ''
+
         },
         Sidebar:{},
 
@@ -92,7 +98,7 @@ export const store: TypeStore = {
     subscribe(callback) {
         this.callSubscriber = callback
     },
-    dispatch(action) {
+    dispatch(action:any) {
         this._state.ProfilePage = ProfileReduce(this._state.ProfilePage, action)
         this._state.DialogPage = DialogReduce(this._state.DialogPage, action)
         this._state.Sidebar = SidebarReduce(this._state.Sidebar, action)

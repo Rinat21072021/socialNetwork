@@ -1,16 +1,20 @@
+
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 
 export type FollowActionsType =
-	| ReturnType<typeof followAC>
-	| ReturnType<typeof unfollowAC>
-	| ReturnType<typeof setUsersAC>
-	| ReturnType<typeof setCurrenPageAC>
-	| ReturnType<typeof setUsersTotalCountAC>
+	| ReturnType<typeof follow>
+	| ReturnType<typeof unfollow>
+	| ReturnType<typeof setUsers>
+	| ReturnType<typeof setCurrenPage>
+	| ReturnType<typeof setUsersTotalCount>
+	| ReturnType<typeof seToggleIsFetching>
 
 type LocationType = {
 	city: string
@@ -20,6 +24,7 @@ type LocationType = {
 export type UserType = {
 	id: number
 	photos: {
+
 		small: string
 		large: string
 	}
@@ -34,6 +39,7 @@ export type StateType = {
 	pageSize: number
 	totalUsersCount: number
 	currentPage: number
+	isFetching: boolean
 }
 
 const initialState: StateType = {
@@ -41,6 +47,7 @@ const initialState: StateType = {
 	pageSize: 5,
 	totalUsersCount: 20,
 	currentPage: 1,
+	isFetching: false
 }
 
 export const UsersReduce = (state: StateType = initialState, action: FollowActionsType): StateType => {
@@ -56,40 +63,51 @@ export const UsersReduce = (state: StateType = initialState, action: FollowActio
 			return {...state, currentPage: action.currentPage}
 		case SET_USERS_TOTAL_COUNT:
 			return {...state, currentPage: action.totalCount}
+		case TOGGLE_IS_FETCHING:
+			return {...state, isFetching: action.isFetching}
 		default: {
 			return state
 		}
 	}
 }
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
 	return {
 		type: FOLLOW,
 		userID
 	} as const
 }
-export const unfollowAC = (userID: number) => {
+export const unfollow = (userID: number) => {
 	return {
 		type: UNFOLLOW,
 		userID
 	} as const
 }
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers = (users: Array<UserType>) => {
 	return {
 		type: SET_USERS,
 		users
 	} as const
 }
-export const setCurrenPageAC = (currentPage: number) => {
+export const setCurrenPage = (currentPage: number) => {
 	return {
 		type: SET_CURRENT_PAGE,
 		currentPage
 	} as const
 
 }
-export const setUsersTotalCountAC = (totalCount: number) => {
+
+export const setUsersTotalCount = (totalCount: number) => {
 	return {
 		type: SET_USERS_TOTAL_COUNT,
 		totalCount
+	} as const
+
+}
+
+export const seToggleIsFetching = (isFetching: boolean) => {
+	return {
+		type: TOGGLE_IS_FETCHING,
+		isFetching
 	} as const
 
 }

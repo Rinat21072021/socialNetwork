@@ -1,8 +1,16 @@
-import {ActionTypes, ProfilePageType} from "./state";
+import {ActionTypes, postsType} from "./state";
 
 const addPost = 'ADD-POST';
 const changeNewText = 'CHANGE-NEW-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
+
+export type ProfilePageType = {
+	posts: Array<postsType>
+	postMessage: string
+	profile:null | {}
+
+}
 //
 // type ActionsType =
 //     | ReturnType<typeof AddPostActionCreator>
@@ -14,6 +22,7 @@ const initialState = {
 		{id: 2, message: 'Hi, message', likesCount: 20},
 		{id: 3, message: 'Hi, Serg', likesCount: 30},
 		{id: 4, message: 'Hi, Nikola', likesCount: 10}],
+	profile:null,
 
 }
 
@@ -39,6 +48,8 @@ export const ProfileReduce = (state: ProfilePageType = initialState, action: Act
 			// stateCopy.postMessage = action.newText;
 			// return stateCopy
 		}
+		case SET_USER_PROFILE:
+			return {...state, profile:action.profile}
 		default: {
 			return state
 		}
@@ -47,6 +58,11 @@ export const ProfileReduce = (state: ProfilePageType = initialState, action: Act
 export const AddPostActionCreator = () => {
 	return {
 		type: addPost,
+	} as const
+}
+export const setUserProfile = (profile:any) => {
+	return {
+		type: SET_USER_PROFILE, profile
 	} as const
 }
 export const newPostChangeActionCreator = (newText: string) => {

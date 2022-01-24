@@ -7,6 +7,7 @@ import MyPostContainer from './My post/MyPostContainer';
 import {ReduxStoreType} from "../../Redux/Redux-store";
 
 type ProfilePropsType = {
+    profile:any
     // ProfilePage: ProfilePageType
     // post: Array<postsType>
     // dispatch: (action: ActionTypes) => void
@@ -16,12 +17,13 @@ type ProfilePropsType = {
 }
 
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = (props:ProfilePropsType) => {
 
 
+    // @ts-ignore
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostContainer />
             {/*<MyPost post={props.post}*/}
             {/*        posts={props.ProfilePage.posts}*/}

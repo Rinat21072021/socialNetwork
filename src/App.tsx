@@ -10,6 +10,7 @@ import Setting from "./components/Setting/Setting";
 import Friends from "./components/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 type AppType = {
@@ -24,7 +25,7 @@ const App = (props: AppType) => {
 				<Header/>
 				<Navbar/>
 				<div className={'app-wrapper-content'}>
-					<Route path={'/Profile'} render={() => <Profile/>}/>
+					<Route path={'/Profile/:userId?'} render={() => <ProfileContainer/>}/>
 
 					<Route path={'/Dialogs'} render={() => <DialogsContainer/>}/>
 					<Route path={'/Users'} render={() => <UsersContainer/>}/>
