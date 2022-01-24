@@ -3,6 +3,7 @@ import {ProfileReduce} from "./Profile-reduce";
 import {DialogReduce} from "./Dialog-reduce";
 import {SidebarReduce} from "./Sidebar-reduce";
 import {UsersReduce} from "./Users-reduce";
+import {authReduce} from "./Auth-reduce";
 
 
 let reducers = combineReducers({
@@ -11,6 +12,7 @@ let reducers = combineReducers({
     SidebarReduce:SidebarReduce,
     Sidebar:SidebarReduce,
     UsersPage:UsersReduce,
+    Auth: authReduce,
 
 })
 export type AppStateType = ReturnType<typeof reducers>
