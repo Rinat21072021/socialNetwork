@@ -16,6 +16,8 @@ import axios from "axios";
 import {Users} from "./Users";
 
 import {Preloader} from "../../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
+
 
 type mapStateToPropsType = {
 	users: Array<UserType>
@@ -34,20 +36,16 @@ type MapDispatchToPropsType = {
 	seToggleIsFetching: (isFetching: boolean) => void
 }
 export type OwnUsersType = mapStateToPropsType & MapDispatchToPropsType
-const instatce = axios.create({
-	withCredentials: true,
-	baseURL: 'https://social-network.samuraijs.com/api/1.0',
-	headers: {"API-KEY": "ff93b3ea-e4dd-4fd8-99af-ef77ec15da18"}
-})
+
 
 export class UsersContainer extends React.Component<OwnUsersType, StateType> {
 	componentDidMount() {
 		this.props.seToggleIsFetching(true)
-		axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-			.then((response) => {
+		usersAPI.getUsers(this.props.currentPage,this.props.pageSize)
+			.then((data) => {
 				this.props.seToggleIsFetching(false)
-				this.props.setUsers(response.data.items)
-				this.props.setCurrentPage(response.data.totalCount)
+				this.props.setUsers(data.items)
+				this.props.setCurrentPage(data.totalCount)
 			})
 	}
 
@@ -57,11 +55,11 @@ export class UsersContainer extends React.Component<OwnUsersType, StateType> {
 		console.log(this.props.pageSize)
 		this.props.setCurrentPage(page);
 		this.props.seToggleIsFetching(true)
-		instatce.get<any>(`/users?page=${page}&count=${this.props.pageSize}`)
-			.then((response) => {
+		usersAPI.getUsers(page,this.props.pageSize)
+			.then((data) => {
 				this.props.seToggleIsFetching(false)
-				this.props.setUsers(response.data.items)
-				console.log(response.data)
+				this.props.setUsers(data.items)
+				console.log(data)
 			})
 	}
 

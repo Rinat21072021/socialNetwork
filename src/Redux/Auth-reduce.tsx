@@ -5,7 +5,7 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
 
 
-export type FollowActionsType =
+export type AuthUsersType =
 	| ReturnType<typeof setAuthUserData>
 
 
@@ -41,7 +41,7 @@ const initialState: StateType = {
 	isAuth: false
 }
 
-export const authReduce = (state: StateType = initialState, action: FollowActionsType): StateType => {
+export const authReduce = (state: StateType = initialState, action: AuthUsersType): StateType => {
 
 	switch (action.type) {
 		case SET_USER_DATA:
