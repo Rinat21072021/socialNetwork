@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
 	follow,
 	setCurrenPage,
-	seToggleIsFetching,
+	seToggleIsFetching, seToggleIsFollowing,
 	setUsers,
 	setUsersTotalCount,
 	StateType,
@@ -12,7 +12,6 @@ import {
 	UserType
 } from "../../Redux/Users-reduce";
 
-import axios from "axios";
 import {Users} from "./Users";
 
 import {Preloader} from "../../common/Preloader/Preloader";
@@ -24,7 +23,8 @@ type mapStateToPropsType = {
 	pageSize: number
 	totalUsersCount: number
 	currentPage: number
-	isFetching: Boolean
+	isFetching: boolean
+	followingInProgress:[]
 
 }
 type MapDispatchToPropsType = {
@@ -34,6 +34,7 @@ type MapDispatchToPropsType = {
 	setCurrentPage: (pageNumber: number) => void
 	setTotalUsersCount: (totalCount: number) => void
 	seToggleIsFetching: (isFetching: boolean) => void
+	seToggleIsFollowing: (isFetching: boolean,userID:number) => void
 }
 export type OwnUsersType = mapStateToPropsType & MapDispatchToPropsType
 
@@ -74,7 +75,10 @@ export class UsersContainer extends React.Component<OwnUsersType, StateType> {
 				   currentPage={this.props.currentPage}
 				   pageSize={this.props.pageSize}
 				   unfollow={this.props.unfollow}
-				   totalUsersCount={this.props.totalUsersCount}/>
+				   totalUsersCount={this.props.totalUsersCount}
+				   followingInProgress={this.props.followingInProgress}
+				   seToggleIsFollowing={this.props.seToggleIsFollowing}
+			/>
 		</>
 
 
@@ -87,7 +91,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 		pageSize: state.UsersPage.pageSize,
 		totalUsersCount: state.UsersPage.totalUsersCount,
 		currentPage: state.UsersPage.currentPage,
-		isFetching: state.UsersPage.isFetching
+		isFetching: state.UsersPage.isFetching,
+		followingInProgress: state.UsersPage.followingInProgress
 	}
 }
 // const MapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
@@ -113,6 +118,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 // 	}
 // }
 
+
 export default connect(mapStateToProps, {
 	follow: follow,
 	unfollow: unfollow,
@@ -120,4 +126,5 @@ export default connect(mapStateToProps, {
 	setCurrentPage: setCurrenPage,
 	setTotalUsersCount: setUsersTotalCount,
 	seToggleIsFetching: seToggleIsFetching,
+	seToggleIsFollowing:seToggleIsFollowing
 })(UsersContainer);

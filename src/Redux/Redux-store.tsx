@@ -14,6 +14,7 @@ let reducers = combineReducers({
     UsersPage:UsersReduce,
     Auth: authReduce,
 
+
 })
 export type AppStateType = ReturnType<typeof reducers>
 

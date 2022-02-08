@@ -3,7 +3,6 @@ import styles from "./Users.module.css";
 import {UserType} from "../../Redux/Users-reduce";
 import userPhoto from "../../assets/images//users.png"
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {usersAPI} from "../../api/api";
 
 
@@ -15,6 +14,8 @@ export type UsersType = {
 	users: Array<UserType>
 	unfollow: (userID: number) => void
 	follow: (userID: number) => void
+	followingInProgress:[]
+	seToggleIsFollowing:(isFetching: boolean, userId:number)=>void
 
 }
 
@@ -24,11 +25,7 @@ export const Users = (props: UsersType) => {
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i)
 	}
-	const instatce = axios.create({
-		withCredentials: true,
-		baseURL: 'https://social-network.samuraijs.com/api/1.0',
-		headers: {"API-KEY": "ff93b3ea-e4dd-4fd8-99af-ef77ec15da18"}
-	})
+
 	return (
 		<div>
 			<div>
@@ -55,20 +52,24 @@ export const Users = (props: UsersType) => {
 
 				<div>
 					{u.followed
-						? <button onClick={() => {
+						? <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
+							props.seToggleIsFollowing(true,u.id)
 							usersAPI.unfollowFriend(u.id)
 								.then(data => {
 									if (data.resultCode === 0) {
 										props.unfollow(u.id)
 									}
+									props.seToggleIsFollowing(false,u.id)
 								})
 						}}>Unfollow</button>
 
-						: <button onClick={() => {
+						: <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
+							props.seToggleIsFollowing(true,u.id)
 							usersAPI.followFriend(u.id).then(data => {
 								if (data.resultCode === 0) {
 									props.follow(u.id)
 								}
+								props.seToggleIsFollowing(false,u.id)
 							})
 						}}>Follow</button>}
 
