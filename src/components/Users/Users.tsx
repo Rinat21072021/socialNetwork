@@ -14,8 +14,8 @@ export type UsersType = {
 	users: Array<UserType>
 	unfollow: (userID: number) => void
 	follow: (userID: number) => void
-	followingInProgress:[]
-	seToggleIsFollowing:(isFetching: boolean, userId:number)=>void
+	followingInProgress: []
+	// seToggleIsFollowing: (isFetching: boolean, userId: number) => void
 
 }
 
@@ -52,25 +52,12 @@ export const Users = (props: UsersType) => {
 
 				<div>
 					{u.followed
-						? <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
-							props.seToggleIsFollowing(true,u.id)
-							usersAPI.unfollowFriend(u.id)
-								.then(data => {
-									if (data.resultCode === 0) {
-										props.unfollow(u.id)
-									}
-									props.seToggleIsFollowing(false,u.id)
-								})
+						? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+							props.unfollow(u.id)
 						}}>Unfollow</button>
 
-						: <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
-							props.seToggleIsFollowing(true,u.id)
-							usersAPI.followFriend(u.id).then(data => {
-								if (data.resultCode === 0) {
-									props.follow(u.id)
-								}
-								props.seToggleIsFollowing(false,u.id)
-							})
+						: <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+							props.follow(u.id)
 						}}>Follow</button>}
 
 				</div>

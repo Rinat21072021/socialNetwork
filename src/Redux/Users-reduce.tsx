@@ -1,4 +1,5 @@
-import {isNumber} from "util";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -9,11 +10,11 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING'
 
 
-export type FollowActionsType =
-	| ReturnType<typeof follow>
-	| ReturnType<typeof unfollow>
+export type ActionsType =
+	 ReturnType<typeof unfollowSuccess>
+	| ReturnType<typeof followSuccess>
 	| ReturnType<typeof setUsers>
-	| ReturnType<typeof setCurrenPage>
+	| ReturnType<typeof setCurrentPage>
 	| ReturnType<typeof setUsersTotalCount>
 	| ReturnType<typeof seToggleIsFetching>
 	| ReturnType<typeof seToggleIsFollowing>
@@ -55,7 +56,7 @@ const initialState: StateType = {
 
 }
 
-export const UsersReduce = (state: StateType = initialState, action: FollowActionsType): StateType => {
+export const UsersReduce = (state: StateType = initialState, action: ActionsType): StateType => {
 
 	switch (action.type) {
 		case FOLLOW:
@@ -83,13 +84,13 @@ export const UsersReduce = (state: StateType = initialState, action: FollowActio
 		}
 	}
 }
-export const follow = (userID: number) => {
+export const followSuccess = (userID: number) => {
 	return {
 		type: FOLLOW,
 		userID
 	} as const
 }
-export const unfollow = (userID: number) => {
+export const unfollowSuccess = (userID: number) => {
 	return {
 		type: UNFOLLOW,
 		userID
@@ -101,7 +102,7 @@ export const setUsers = (users: Array<UserType>) => {
 		users
 	} as const
 }
-export const setCurrenPage = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
 	return {
 		type: SET_CURRENT_PAGE,
 		currentPage
@@ -122,10 +123,49 @@ export const seToggleIsFetching = (isFetching: boolean) => {
 	} as const
 
 }
-export const seToggleIsFollowing = (isFetching: boolean, userID:number) => {
+export const seToggleIsFollowing = (isFetching: boolean, userID: number) => {
 	return {
 		type: TOGGLE_IS_FOLLOWING,
-		isFetching,userID
+		isFetching, userID
 	} as const
 
+}
+
+//DAL
+export const getUsers = (currentPage:number, pageSize:number) => {
+	return (dispatch:Dispatch<ActionsType>) => {
+		dispatch(seToggleIsFetching(true))
+		usersAPI.getUsers(currentPage, pageSize)
+			.then((data) => {
+				dispatch(seToggleIsFetching(false))
+				dispatch(setUsers(data.items))
+				dispatch(setCurrentPage(data.totalCount))
+			})
+	}
+}
+
+
+export const follow = (userID:number)=>{
+	return (dispatch:Dispatch<ActionsType>)=>{
+		dispatch(seToggleIsFollowing(true,userID))
+		usersAPI.followFriend(userID).then(data => {
+			if (data.resultCode === 0) {
+				dispatch(followSuccess(userID))
+			}
+			dispatch(seToggleIsFollowing(false,userID))
+		})
+	}
+}
+
+export const unfollow = (userID:number)=>{
+	return (dispatch:Dispatch<ActionsType>)=>{
+		dispatch(seToggleIsFollowing(true,userID))
+		usersAPI.unfollowFriend(userID)
+			.then(data => {
+				if (data.resultCode === 0) {
+					dispatch(unfollowSuccess(userID))
+				}
+				dispatch(seToggleIsFollowing(false,userID))
+			})
+	}
 }

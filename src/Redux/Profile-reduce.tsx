@@ -1,4 +1,7 @@
 import {ActionTypes, postsType} from "./state";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+import {ActionsType} from "./Users-reduce";
 
 const addPost = 'ADD-POST';
 const changeNewText = 'CHANGE-NEW-TEXT';
@@ -70,4 +73,13 @@ export const newPostChangeActionCreator = (newText: string) => {
 		type: changeNewText,
 		newText: newText
 	} as const
+}
+
+//DAL
+export const UserProfile=(userId:number)=>{
+	return (dispatch:Dispatch<ActionTypes>)=>{
+		usersAPI.UserProfile(userId).then((data) => {
+			dispatch(setUserProfile(data))
+		})
+	}
 }
