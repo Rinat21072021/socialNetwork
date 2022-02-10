@@ -11,6 +11,7 @@ type PropsType={
 }
 
 const Header= (props: PropsType) =>{
+    console.log(props.login)
     return (
         <header className={s.header}>
 

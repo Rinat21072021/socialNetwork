@@ -2,7 +2,7 @@ import React from 'react';
 import {StateType, UserType} from "../../Redux/Users-reduce";
 import Profile from "./Profile";
 import {connect} from 'react-redux';
-import {setUserProfile, UserProfile} from "../../Redux/Profile-reduce";
+import {  UserProfile} from "../../Redux/Profile-reduce";
 import {AppStateType} from "../../Redux/Redux-store";
 import {ProfilePageType} from "../../Redux/state";
 import {withRouter} from "react-router-dom";
@@ -11,6 +11,7 @@ type mapStateToPropsType = {
 	profile: ProfilePageType
 
 }
+
 
 class ProfileContainer extends React.Component<any, StateType> {
 

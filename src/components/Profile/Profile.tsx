@@ -20,7 +20,7 @@ type ProfilePropsType = {
 const Profile = (props:ProfilePropsType) => {
 
 
-    // @ts-ignore
+
     return (
         <div>
             <ProfileInfo profile={props.profile}/>

@@ -17,14 +17,14 @@ export const usersAPI = {
 	followFriend(userId:number){
 		return instatce.post<any>(`follow/${userId}`,{},).then((response=>response.data))
 	},
-	auth(){
-		return instatce.get<any>(`auth/me`).then((response=>response.data))
-	},
-	UserProfile(userId:number){
+	getProfile(userId:number){
 		return instatce.get<any>(`profile/${userId}`).then((response=>response.data))
 
 	}
-
 }
-
+export const authAPI = {
+	me(){
+		return instatce.get<any>(`auth/me`).then((response=>response.data))
+	},
+}
 

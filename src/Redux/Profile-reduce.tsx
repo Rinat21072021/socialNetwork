@@ -78,7 +78,7 @@ export const newPostChangeActionCreator = (newText: string) => {
 //DAL
 export const UserProfile=(userId:number)=>{
 	return (dispatch:Dispatch<ActionTypes>)=>{
-		usersAPI.UserProfile(userId).then((data) => {
+		usersAPI.getProfile(userId).then((data) => {
 			dispatch(setUserProfile(data))
 		})
 	}
